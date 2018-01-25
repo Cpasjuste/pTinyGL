@@ -42,6 +42,8 @@ void pglClose() {
 
     if (surface)
         SDL_FreeSurface(surface);
+
+    SDL_QuitSubSystem(SDL_INIT_VIDEO);
 }
 
 void *pglGetFrameBuffer() {

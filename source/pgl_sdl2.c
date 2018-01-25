@@ -79,6 +79,8 @@ void pglClose() {
         SDL_DestroyRenderer(renderer);
     if (window)
         SDL_DestroyWindow(window);
+
+    SDL_QuitSubSystem(SDL_INIT_VIDEO);
 }
 
 void *pglGetFrameBuffer() {

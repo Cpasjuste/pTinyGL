@@ -17,7 +17,7 @@ typedef struct TEXTURE {
 
 } TEXTURE;
 
-void load_texture(const char *path, TEXTURE *texture) {
+int load_texture(const char *path, TEXTURE *texture) {
 
     unsigned int error = 0;
     unsigned char *pixels = NULL;
@@ -25,7 +25,7 @@ void load_texture(const char *path, TEXTURE *texture) {
     error = lodepng_decode32_file(&pixels, &texture->width, &texture->height, path);
     if (error) {
         printf("load_texture error %u: %s\n", error, lodepng_error_text(error));
-        return;
+        return -1;
     }
 
     glGenTextures(1, &texture->id);
@@ -34,6 +34,8 @@ void load_texture(const char *path, TEXTURE *texture) {
                  GL_RGBA, GL_UNSIGNED_BYTE, pixels);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    return 0;
 }
 
 int main() {
@@ -49,7 +51,10 @@ int main() {
     glMatrixMode(GL_MODELVIEW);
 
     TEXTURE tex;
-    load_texture("pfba.png", &tex);
+    if (load_texture("pfba.png", &tex) != 0) {
+        pglClose();
+        return -1;
+    }
 
     for (int i = 0; i < 60 * 10; i++) {
 
