@@ -891,8 +891,8 @@ void glOrthof(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top,
 #define glOrtho glOrthof
 
 // TODO:
-#define glDepthMask
-#define glBlendFunc
+#define glDepthMask(a)
+#define glBlendFunc(a, b)
 
 #ifdef __cplusplus
 }
