@@ -51,7 +51,7 @@ int main() {
     TEXTURE tex;
     load_texture("pfba.png", &tex);
 
-    while (1) {
+    for (int i = 0; i < 60 * 10; i++) {
 
         // clear screen
         glClearColor(1, 0, 0, 1);

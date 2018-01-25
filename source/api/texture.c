@@ -122,7 +122,7 @@ void glopTexImage2D(GLContext *c, GLParam *p) {
     int width = p[4].i;
     int height = p[5].i;
     int border = p[6].i;
-    int format = p[7].i;
+    //int format = p[7].i;
     int type = p[8].i;
     void *pixels = p[9].p;
     GLImage *im;
