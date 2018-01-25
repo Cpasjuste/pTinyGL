@@ -275,11 +275,12 @@ void ZB_fillTriangleMappingPerspective(ZBuffer *zb,
 {                        \
    zz=z >> ZB_POINT_Z_FRAC_BITS;        \
      if (ZCMP(zz,pz[_a])) {                \
-        if(color != 0x0000FFFF) { \
-            pp[_a]=color; \
-        } else { \
-            unsigned short pix = *(PIXEL *)((char *)texture+ \
+        unsigned short pix = *(PIXEL *)((char *)texture+ \
                (((t & 0x3FC00000) | (s & 0x003FC000)) >> (17 - PSZSH))); \
+        if(color != 0x0000FFFF) { \
+            if(pix != 0x000007FF) \
+                pp[_a]=color; \
+        } else { \
             if(pix != 0x000007FF)   \
                 pp[_a]=pix;         \
         } \

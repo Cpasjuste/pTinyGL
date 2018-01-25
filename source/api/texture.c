@@ -141,19 +141,20 @@ void glopTexImage2D(GLContext *c, GLParam *p) {
           && border == 0
           && type == GL_UNSIGNED_BYTE)) {
         gl_fatal_error("glTexImage2D: combinaison of parameters not handled");
+        return;
     }
 
-    do_free = 0;
-    if (width != 256 || height != 256) {
-        pixels1 = gl_malloc(256 * 256 * components);
-        /* no interpolation is done here to respect the original image aliasing ! */
-        gl_resizeImageNoInterpolate(pixels1, 256, 256, pixels, width, height, components);
-        do_free = 1;
-        width = 256;
-        height = 256;
-    } else {
-        pixels1 = pixels;
-    }
+    //do_free = 0;
+    //if (width != 256 || height != 256) {
+    pixels1 = gl_malloc(256 * 256 * components);
+    /* no interpolation is done here to respect the original image aliasing ! */
+    gl_resizeImageNoInterpolate(pixels1, 256, 256, pixels, width, height, components);
+    do_free = 1;
+    width = 256;
+    height = 256;
+    //} else {
+    //    pixels1 = pixels;
+    //}
 
     im = &c->current_texture->images[level];
     im->xsize = width;
