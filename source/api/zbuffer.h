@@ -87,9 +87,9 @@ typedef struct {
 } ZBuffer;
 
 typedef struct {
-    int x, y, z;     /* integer coordinates in the zbuffer */
+    int x, y, z;    /* integer coordinates in the zbuffer */
     int s, t;       /* coordinates for the mapping */
-    int r, g, b;     /* color indexes */
+    int r, g, b; /* color indexes */
 
     float sz, tz;   /* temporary coordinates for mapping */
 } ZBufferPoint;

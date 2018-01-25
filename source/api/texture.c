@@ -2,6 +2,7 @@
  * Texture Manager
  */
 
+#include <string.h>
 #include "zgl.h"
 
 static GLTexture *find_texture(GLContext *c, int h) {
@@ -121,7 +122,7 @@ void glopTexImage2D(GLContext *c, GLParam *p) {
     int width = p[4].i;
     int height = p[5].i;
     int border = p[6].i;
-    //int format = p[7].i;
+    int format = p[7].i;
     int type = p[8].i;
     void *pixels = p[9].p;
     GLImage *im;
@@ -136,10 +137,7 @@ void glopTexImage2D(GLContext *c, GLParam *p) {
     }
     */
 
-    if (!(target == GL_TEXTURE_2D
-          && level == 0
-          && border == 0
-          && type == GL_UNSIGNED_BYTE)) {
+    if (!(target == GL_TEXTURE_2D && level == 0 && border == 0 && type == GL_UNSIGNED_BYTE)) {
         gl_fatal_error("glTexImage2D: combinaison of parameters not handled");
         return;
     }
@@ -166,9 +164,13 @@ void glopTexImage2D(GLContext *c, GLParam *p) {
         memcpy(im->pixmap,pixels1,width*height*3);
     }
 #elif TGL_FEATURE_RENDER_BITS == 32
-    im->pixmap=gl_malloc(width*height*4);
-    if(im->pixmap) {
-        gl_convertRGB_to_8A8R8G8B(im->pixmap,pixels1,width,height);
+    im->pixmap = gl_malloc(width * height * components);
+    if (im->pixmap) {
+        if (format == GL_RGBA) {
+            memcpy(im->pixmap, pixels1, width * height * 4);
+        } else {
+            gl_convertRGB_to_8A8R8G8B(im->pixmap, pixels1, width, height);
+        }
     }
 #elif TGL_FEATURE_RENDER_BITS == 16
     im->pixmap = gl_malloc(width * height * 2);

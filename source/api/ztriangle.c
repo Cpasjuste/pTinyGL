@@ -45,8 +45,8 @@ void ZB_fillTriangleFlat(ZBuffer *zb,
 {                        \
     zz=z >> ZB_POINT_Z_FRAC_BITS;        \
     if (ZCMP(zz,pz[_a])) {                \
-      pp[_a]=color;                \
-      pz[_a]=zz;                \
+            pp[_a]=color;                \
+            pz[_a]=zz; \
     }                        \
     z+=dzdx;                    \
 }
@@ -69,7 +69,7 @@ void ZB_fillTriangleSmooth(ZBuffer *zb,
 #define INTERP_Z
 #define INTERP_RGB
 
-#define SAR_RND_TO_ZERO(v, n) (v / (1<<n))
+#define SAR_RND_TO_ZERO(v, n) ((v) / (1<<(n)))
 
 #if TGL_FEATURE_RENDER_BITS == 24
 
@@ -278,13 +278,14 @@ void ZB_fillTriangleMappingPerspective(ZBuffer *zb,
         unsigned short pix = *(PIXEL *)((char *)texture+ \
                (((t & 0x3FC00000) | (s & 0x003FC000)) >> (17 - PSZSH))); \
         if(color != 0x0000FFFF) { \
-            if(pix != 0x000007FF) \
+            if(pix != 0x000007FF) {\
                 pp[_a]=color; \
+                pz[_a]=zz; } \
         } else { \
-            if(pix != 0x000007FF)   \
+            if(pix != 0x000007FF) {  \
                 pp[_a]=pix;         \
+                 pz[_a]=zz; } \
         } \
-        pz[_a]=zz;          \
     }                        \
     z+=dzdx;                    \
     s+=dsdx;                    \

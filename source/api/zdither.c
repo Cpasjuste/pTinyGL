@@ -131,7 +131,7 @@ void ZB_ditherFrameBuffer(ZBuffer *zb, unsigned char *buf,
             g_d = b_d | g_d;
 
             dest1 = buf + (yk * linesize) + xk;
-            pp1 = zb->pbuf + (yk * zb->xsize) + xk;
+            pp1 = (unsigned short *) (zb->pbuf + (yk * zb->xsize) + xk);
 
             for (y = yk; y < zb->ysize; y += 4) {
                 dest = dest1;
