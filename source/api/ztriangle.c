@@ -233,6 +233,7 @@ void ZB_fillTriangleMappingPerspective(ZBuffer *zb,
                                        ZBufferPoint *p0, ZBufferPoint *p1, ZBufferPoint *p2) {
     PIXEL *texture;
     float fdzdx, fndzdx, ndszdx, ndtzdx;
+    int color;
 
 #define INTERP_Z
 #define INTERP_STZ
@@ -241,6 +242,7 @@ void ZB_fillTriangleMappingPerspective(ZBuffer *zb,
 
 #define DRAW_INIT()                \
 {                        \
+  color=RGB_TO_PIXEL(p2->r,p2->g,p2->b); \
   texture=zb->current_texture;\
   fdzdx=(float)dzdx;\
   fndzdx=NB_INTERP * fdzdx;\
@@ -273,10 +275,14 @@ void ZB_fillTriangleMappingPerspective(ZBuffer *zb,
 {                        \
    zz=z >> ZB_POINT_Z_FRAC_BITS;        \
      if (ZCMP(zz,pz[_a])) {                \
-        unsigned short pix = *(PIXEL *)((char *)texture+ \
+        if(color != 0x0000FFFF) { \
+            pp[_a]=color; \
+        } else { \
+            unsigned short pix = *(PIXEL *)((char *)texture+ \
                (((t & 0x3FC00000) | (s & 0x003FC000)) >> (17 - PSZSH))); \
-        if(pix != 0x000007FF)   \
-            pp[_a]=pix;         \
+            if(pix != 0x000007FF)   \
+                pp[_a]=pix;         \
+        } \
         pz[_a]=zz;          \
     }                        \
     z+=dzdx;                    \
