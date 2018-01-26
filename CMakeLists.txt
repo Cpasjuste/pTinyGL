@@ -57,7 +57,9 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/pTinyGL DESTINATION include)
 ############
 if (BUILD_PSP2)
     vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME}.elf)
-    vita_create_vpk(${PROJECT_NAME}.vpk "PTINYGL00" ${PROJECT_NAME}.self VERSION "01.00" NAME "pTinyGL")
+    vita_create_vpk(${PROJECT_NAME}.vpk "CROSS2D00" ${PROJECT_NAME}.self
+            VERSION "01.00" NAME "CROSS2D"
+            FILE ${SDIR}/examples/pfba.png pfba.png)
 endif (BUILD_PSP2)
 
 ##############
