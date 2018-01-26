@@ -1,6 +1,6 @@
 #include <switch.h>
 
-#include "GL/pgl.h"
+#include "pTinyGL/pgl.h"
 #include "api/zbuffer.h"
 #include "api/zgl.h"
 

@@ -1,9 +1,6 @@
-#include <GL/oscontext.h>
+#include <pTinyGL/oscontext.h>
 #include "zbuffer.h"
 #include "zgl.h"
-#include <GL/gl.h>
-#include <stdlib.h>
-#include <assert.h>
 
 static int buffercnt = 0;
 

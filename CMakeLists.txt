@@ -49,20 +49,15 @@ target_compile_options(${PROJECT_NAME}.elf PRIVATE ${FLAGS})
 target_link_libraries(${PROJECT_NAME}.elf pTinyGL ${LIBS})
 add_dependencies(${PROJECT_NAME}.elf ${PROJECT_NAME})
 
+install(FILES ${CMAKE_BINARY_DIR}/libpTinyGL.a DESTINATION lib)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/pTinyGL DESTINATION include)
+
 ############
 # PSP2 VPK
 ############
 if (BUILD_PSP2)
-    add_custom_target(${PROJECT_NAME}.vpk
-            DEPENDS ${PROJECT_NAME}.elf
-            COMMAND rm -rf ${BDIR}/vpk && mkdir -p ${BDIR}/vpk/sce_sys
-            COMMAND ${VITASDK}/bin/vita-elf-create ${PROJECT_NAME}.elf ${PROJECT_NAME}.velf
-            COMMAND ${VITASDK}/bin/vita-make-fself -c ${PROJECT_NAME}.velf ${BDIR}/vpk/eboot.bin
-            COMMAND ${VITASDK}/bin/vita-mksfoex -s TITLE_ID=${TITLE_ID} "${PROJECT_NAME}" ${BDIR}/vpk/sce_sys/param.sfo
-            COMMAND cp ${SDIR}/examples/pfba.png ${BDIR}/vpk/
-            COMMAND cd ${BDIR}/vpk && zip -r ../${PROJECT_NAME}-${BUILD_DATE}.vpk . && cd ${BDIR}
-            )
-    add_dependencies(${PROJECT_NAME}.vpk ${PROJECT_NAME}.elf)
+    vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME}.elf)
+    vita_create_vpk(${PROJECT_NAME}.vpk "PTINYGL00" ${PROJECT_NAME}.self VERSION "01.00" NAME "pTinyGL")
 endif (BUILD_PSP2)
 
 ##############

@@ -3,7 +3,7 @@
 //
 
 #include <stdio.h>
-#include <GL/pgl.h>
+#include <pTinyGL/pgl.h>
 #include "lodepng.h"
 
 #define SCREEN_W 960
