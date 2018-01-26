@@ -106,7 +106,10 @@ void glopBindTexture(GLContext *c, GLParam *p) {
     int texture = p[2].i;
     GLTexture *t;
 
-    assert(target == GL_TEXTURE_2D && texture >= 0);
+    if (target != GL_TEXTURE_2D || texture < 0) {
+        gl_fatal_error("glBindTexture: combinaison of parameters not handled");
+        return;
+    }
 
     t = find_texture(c, texture);
     if (t == NULL) {

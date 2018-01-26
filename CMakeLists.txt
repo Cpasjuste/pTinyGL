@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.0)
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
 set(CMAKE_SYSTEM_NAME "Generic")
-enable_language(ASM)
 
 # delete cmake cache folder before changing this options
 option(BUILD_SDL1 "Build with SDL2 support" OFF)

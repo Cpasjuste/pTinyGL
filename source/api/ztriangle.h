@@ -14,7 +14,7 @@ int nb_lines, dx1, dy1, tmp, dx2, dy2;
 int error, derror;
 int x1, dxdy_min, dxdy_max;
 /* warning: x2 is multiplied by 2^16 */
-int x2, dx2dy2;
+int x2 = 0, dx2dy2 = 0;
 
 #ifdef INTERP_Z
 int z1,dzdx,dzdy,dzdl_min,dzdl_max;
