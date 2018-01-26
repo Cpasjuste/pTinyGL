@@ -28,6 +28,7 @@ void pglSwap() {
     vita2d_start_drawing();
     vita2d_draw_texture(texture, 0, 0);
     vita2d_end_drawing();
+    vita2d_wait_rendering_done();
     vita2d_swap_buffers();
 }
 
