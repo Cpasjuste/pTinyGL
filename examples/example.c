@@ -51,7 +51,7 @@ int main() {
     glMatrixMode(GL_MODELVIEW);
 
     TEXTURE tex;
-    if (load_texture("pfba.png", &tex) != 0) {
+    if (load_texture(PNG_PATH, &tex) != 0) {
         pglClose();
         return -1;
     }
