@@ -120,7 +120,7 @@ void gl_resizeImageNoInterpolate(unsigned char *dest, int xsize_dest, int ysize_
             pix1 = pix_src + (yi * xsize_src + xi) * components;
 
             // handle rgba as rgb with color key
-            if (components == 4 && pix1[3] == 0x00) {
+            if (components == 4 && pix1[3] != 0xFF) {
                 pix[0] = 0x00;
                 pix[1] = 0xFF;
                 pix[2] = 0xFF;

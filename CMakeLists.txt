@@ -40,8 +40,9 @@ elseif (BUILD_NX)
 endif (BUILD_SDL1)
 
 add_library(${PROJECT_NAME} ${SOURCES})
-target_include_directories(${PROJECT_NAME} PRIVATE ${INCLUDES})
-target_compile_options(${PROJECT_NAME} PRIVATE ${FLAGS})
+target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
+target_compile_options(${PROJECT_NAME} PUBLIC ${FLAGS})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${LIBS})
 
 add_executable(${PROJECT_NAME}.elf ${SDIR}/examples/example.c ${SDIR}/examples/lodepng.c)
 target_include_directories(${PROJECT_NAME}.elf PRIVATE ${INCLUDES})
