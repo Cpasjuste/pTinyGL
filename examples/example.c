@@ -6,8 +6,8 @@
 #include <pTinyGL/pgl.h>
 #include "lodepng.h"
 
-#define SCREEN_W 960
-#define SCREEN_H 544
+#define SCREEN_W 1280
+#define SCREEN_H 720
 
 typedef struct TEXTURE {
 
@@ -50,18 +50,21 @@ int main() {
     glOrtho(0.0f, SCREEN_W, SCREEN_H, 0.0f, 0.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
 
+    /*
     TEXTURE tex;
     if (load_texture(PNG_PATH, &tex) != 0) {
         pglClose();
         return -1;
     }
+    */
 
-    for (int i = 0; i < 60 * 10; i++) {
+    for (int i = 0; i < 20; i++) {
 
         // clear screen
         glClearColor(1, 0, 0, 1);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        /*
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, tex.id);
 
@@ -77,6 +80,7 @@ int main() {
         glEnd();
 
         glDisable(GL_TEXTURE_2D);
+        */
 
         pglSwap();
     }

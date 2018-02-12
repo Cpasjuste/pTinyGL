@@ -7,7 +7,7 @@ set(CMAKE_SYSTEM_NAME "Generic")
 option(BUILD_SDL1 "Build with SDL2 support" OFF)
 option(BUILD_SDL2 "Build with SDL2 support" OFF)
 option(BUILD_PSP2 "Build with PSP2 support" OFF)
-option(BUILD_NX "Build with SWITCH support" OFF)
+option(BUILD_NX "Build with SWITCH support" ON)
 
 # setup toolchain
 include(Toolchain.cmake)
