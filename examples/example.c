@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <pTinyGL/pgl.h>
 #include "lodepng.h"
+#include "pfba.h"
 
 #define SCREEN_W 1280
 #define SCREEN_H 720
@@ -17,12 +18,13 @@ typedef struct TEXTURE {
 
 } TEXTURE;
 
-int load_texture(const char *path, TEXTURE *texture) {
+int load_texture(TEXTURE *texture) {
 
     unsigned int error = 0;
     unsigned char *pixels = NULL;
 
-    error = lodepng_decode32_file(&pixels, &texture->width, &texture->height, path);
+    error = lodepng_decode32(&pixels, &texture->width, &texture->height,
+                             (const unsigned char *) pfba_png, pfba_png_length);
     if (error) {
         printf("load_texture error %u: %s\n", error, lodepng_error_text(error));
         return -1;
@@ -50,13 +52,11 @@ int main() {
     glOrtho(0.0f, SCREEN_W, SCREEN_H, 0.0f, 0.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
 
-    /*
     TEXTURE tex;
-    if (load_texture(PNG_PATH, &tex) != 0) {
+    if (load_texture(&tex) != 0) {
         pglClose();
         return -1;
     }
-    */
 
     for (int i = 0; i < 20; i++) {
 
@@ -64,7 +64,6 @@ int main() {
         glClearColor(1, 0, 0, 1);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        /*
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, tex.id);
 
@@ -80,7 +79,6 @@ int main() {
         glEnd();
 
         glDisable(GL_TEXTURE_2D);
-        */
 
         pglSwap();
     }
