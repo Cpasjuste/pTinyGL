@@ -25,14 +25,16 @@ static void ZB_copyFrameBufferRGB32(ZBuffer *zb, u32 *buf) {
 
     unsigned short *q;
     unsigned int v, r, g, b;
-    int x, y;
+    int x, y, w, h;
 
+    w = zb->xsize;
+    h = zb->ysize;
     q = zb->pbuf;
 
-    for (x = 0; x < zb->xsize; x++) {
-        for (y = 0; y < zb->ysize; y++) {
+    for (x = 0; x < w; x++) {
+        for (y = 0; y < h; y++) {
 
-            v = q[y * zb->xsize + x];
+            v = q[y * w + x];
             r = (v & 0xf800) >> 11;
             g = (v & 0x07e0) >> 5;
             b = v & 0x001f;
