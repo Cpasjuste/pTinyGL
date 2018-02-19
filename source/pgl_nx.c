@@ -10,11 +10,8 @@ static u32 *nxBuffer;
 int pglInit(int width, int height) {
 
     gfxInitDefault();
-    gfxSetMode(GfxMode_TiledSingle);
-    gfxFlushBuffers();
-    gfxWaitForVsync();
+    gfxSetMode(GfxMode_TiledDouble);
 
-    nxBuffer = (u32 *) gfxGetFramebuffer(NULL, NULL);
     pglBuffer = ZB_open(width, height, ZB_MODE_RGBA, 0, 0, 0, 0);
     glInit(pglBuffer);
 
@@ -47,8 +44,8 @@ static void ZB_copyFrameBufferRGB32(ZBuffer *zb, u32 *buf) {
 
 void pglSwap() {
 
+    nxBuffer = (u32 *) gfxGetFramebuffer(NULL, NULL);
     ZB_copyFrameBufferRGB32(pglBuffer, nxBuffer);
-    //ZB_copyFrameBuffer(pglBuffer, nxBuffer, 1280 * 4);
 
     gfxFlushBuffers();
     gfxSwapBuffers();

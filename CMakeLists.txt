@@ -62,7 +62,7 @@ endif (BUILD_PSP2)
 # SWITCH NRO
 ##############
 if (BUILD_NX)
-    set_target_properties(${PROJECT_NAME}.elf PROPERTIES LINK_FLAGS "-specs=switch.specs")
+    set_target_properties(${PROJECT_NAME}.elf PROPERTIES LINK_FLAGS "-specs=${DEVKITPRO}/libnx/switch.specs")
     add_custom_target(${PROJECT_NAME}.nro
             DEPENDS ${PROJECT_NAME}.elf
             COMMAND elf2nro ${PROJECT_NAME}.elf ${PROJECT_NAME}.nro
