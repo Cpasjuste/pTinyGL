@@ -9,6 +9,7 @@ static u32 *nxBuffer;
 
 int pglInit(int width, int height) {
 
+    gfxInitResolution((u32) width, (u32) height);
     gfxInitDefault();
     gfxSetMode(GfxMode_TiledDouble);
 
