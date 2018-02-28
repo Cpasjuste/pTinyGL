@@ -6,9 +6,12 @@
 
 static ZBuffer *pglBuffer;
 static u32 *nxBuffer;
+static int nxW, nxH;
 
 int pglInit(int width, int height) {
 
+    nxW = width;
+    nxH = height;
     gfxInitResolution((u32) width, (u32) height);
     gfxInitDefault();
     gfxSetMode(GfxMode_TiledDouble);
@@ -29,8 +32,8 @@ static void ZB_copyFrameBufferRGB32(ZBuffer *zb, u32 *buf) {
     h = zb->ysize;
     q = zb->pbuf;
 
-    for (x = 0; x < w; x++) {
-        for (y = 0; y < h; y++) {
+    for (y = 0; y < h; y++) {
+        for (x = 0; x < w; x++) {
 
             v = q[y * w + x];
             r = (v & 0xf800) >> 11;
@@ -45,12 +48,14 @@ static void ZB_copyFrameBufferRGB32(ZBuffer *zb, u32 *buf) {
 
 void pglSwap() {
 
-    nxBuffer = (u32 *) gfxGetFramebuffer(NULL, NULL);
-    ZB_copyFrameBufferRGB32(pglBuffer, nxBuffer);
-
-    gfxFlushBuffers();
-    gfxSwapBuffers();
-    gfxWaitForVsync();
+    u32 w, h;
+    nxBuffer = (u32 *) gfxGetFramebuffer(&w, &h);
+    if (nxBuffer && w == nxW && h == nxH) {
+        ZB_copyFrameBufferRGB32(pglBuffer, nxBuffer);
+        gfxFlushBuffers();
+        gfxSwapBuffers();
+        gfxWaitForVsync();
+    }
 }
 
 void pglClose() {

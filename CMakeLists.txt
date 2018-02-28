@@ -5,6 +5,7 @@ set(CMAKE_SYSTEM_NAME "Generic")
 
 # delete cmake cache folder before changing this options
 option(BUILD_SDL1 "Build with SDL2 support" OFF)
+option(BUILD_SDL1_MESA "Build with SDL2 support" OFF)
 option(BUILD_SDL2 "Build with SDL2 support" OFF)
 option(BUILD_PSP2 "Build with PSP2 support" OFF)
 option(BUILD_NX "Build with SWITCH support" OFF)
@@ -22,8 +23,11 @@ set(INCLUDES include)
 file(GLOB SOURCES ${SDIR}/source/api/*.c)
 
 if (BUILD_SDL1)
-    list(APPEND SOURCES ${SDIR}/source/pgl_sdl1.c)
-    set(LIBS SDL m)
+    list(APPEND SOURCES
+            ${SDIR}/source/pgl_sdl1.c
+            ${SDIR}/source/pgl_sdl1_mesa.c
+            )
+    set(LIBS SDL OSMesa m)
 elseif (BUILD_SDL2)
     list(APPEND SOURCES ${SDIR}/source/pgl_sdl2.c)
     set(LIBS SDL2 m)
