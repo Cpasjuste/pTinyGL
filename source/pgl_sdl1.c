@@ -37,8 +37,8 @@ void pglSwap() {
 void pglClose() {
 
     frameBuffer->frame_buffer_allocated = 0;
-    ZB_close(frameBuffer);
     glClose();
+    ZB_close(frameBuffer);
 
     if (surface)
         SDL_FreeSurface(surface);

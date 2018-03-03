@@ -25,7 +25,7 @@ file(GLOB SOURCES ${SDIR}/source/api/*.c)
 if (BUILD_SDL1)
     list(APPEND SOURCES
             ${SDIR}/source/pgl_sdl1.c
-            ${SDIR}/source/pgl_sdl1_mesa.c
+            #${SDIR}/source/pgl_sdl1_mesa.c
             )
     set(LIBS SDL OSMesa m)
 elseif (BUILD_SDL2)

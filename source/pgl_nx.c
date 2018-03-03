@@ -60,8 +60,8 @@ void pglSwap() {
 
 void pglClose() {
 
-    glClose();
     ZB_close(pglBuffer);
+    glClose();
     gfxExit();
 }
 
